@@ -1,2 +1,5 @@
 data/
 .DS_Store
+.vscode
+.venv
+.ipynb_checkpoint
