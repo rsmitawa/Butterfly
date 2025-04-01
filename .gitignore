@@ -1,5 +1,28 @@
-data/
-.DS_Store
-.vscode
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.env
 .venv
-.ipynb_checkpoint
+env/
+venv/
+ENV/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Data files
+data/processed/*
+!data/processed/.gitkeep
