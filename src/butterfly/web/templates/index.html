@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">PDF Assistant</h1>
+            <p class="mt-2 text-gray-600">Ask questions about your PDF documents</p>
+            <div class="mt-4 space-x-4">
+                <a href="/invoices" class="text-blue-500 hover:text-blue-700">View Invoices</a>
+                <a href="/qa_pairs" class="text-blue-500 hover:text-blue-700">View QA Pairs</a>
+            </div>
+        </header>
+
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <div id="chat-container" class="h-96 overflow-y-auto mb-4 space-y-4">
+                <div class="bg-gray-100 rounded-lg p-4 max-w-[80%] animate-fade-in">
+                    <p class="text-gray-700">Hello! I can help you find information in your PDF documents. What would you like to know?</p>
+                </div>
+            </div>
+
+            <form id="chat-form" class="flex gap-2">
+                <input 
+                    type="text" 
+                    id="question-input" 
+                    placeholder="Type your question here..." 
+                    class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                >
+                <button 
+                    type="submit" 
+                    class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                    Send
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const chatContainer = document.getElementById('chat-container');
+        const chatForm = document.getElementById('chat-form');
+        const questionInput = document.getElementById('question-input');
+
+        function addMessage(content, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `bg-${isUser ? 'blue' : 'gray'}-100 rounded-lg p-4 max-w-[80%] ml-${isUser ? 'auto' : '0'} animate-fade-in`;
+            
+            const messageContent = document.createElement('p');
+            messageContent.className = `text-${isUser ? 'white' : 'gray'}-700`;
+            messageContent.textContent = content;
+            
+            messageDiv.appendChild(messageContent);
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function addSources(sources) {
+            if (!sources || sources.length === 0) return;
+            
+            const sourcesDiv = document.createElement('div');
+            sourcesDiv.className = 'bg-gray-100 rounded-lg p-4 max-w-[80%] mt-2 animate-fade-in';
+            
+            const sourcesTitle = document.createElement('p');
+            sourcesTitle.className = 'text-sm font-semibold text-gray-600 mb-2';
+            sourcesTitle.textContent = 'Sources:';
+            
+            const sourcesList = document.createElement('ul');
+            sourcesList.className = 'text-sm text-gray-600 space-y-1';
+            
+            sources.forEach(source => {
+                const sourceItem = document.createElement('li');
+                sourceItem.textContent = source;
+                sourcesList.appendChild(sourceItem);
+            });
+            
+            sourcesDiv.appendChild(sourcesTitle);
+            sourcesDiv.appendChild(sourcesList);
+            chatContainer.appendChild(sourcesDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const question = questionInput.value.trim();
+            if (!question) return;
+            
+            // Add user message
+            addMessage(question, true);
+            questionInput.value = '';
+            
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ question }),
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    addMessage(data.answer);
+                    addSources(data.sources);
+                } else {
+                    addMessage(`Error: ${data.error}`);
+                }
+            } catch (error) {
+                addMessage('Sorry, there was an error processing your question.');
+            }
+        });
+    </script>
+
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+    </style>
+</body>
+</html> 

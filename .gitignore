@@ -4,21 +4,34 @@ __pycache__/
 *$py.class
 *.so
 .Python
-.env
-.venv
 env/
 venv/
 ENV/
+build/
+dist/
+*.egg-info/
+
+# Environment
+.env
+.venv
+
+# IDE
+.vscode/
+*.code-workspace
+.idea/
 
 # Jupyter Notebook
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
 
-# VS Code
-.vscode/
-*.code-workspace
-
 # macOS
+.DS_Store
+
+# Project specific
+data/processed/*
+!data/processed/.gitkeep
+data/raw/*
+!data/raw/.gitkeep
 .DS_Store
 .AppleDouble
 .LSOverride
