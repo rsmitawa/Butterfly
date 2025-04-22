@@ -1,4 +1,4 @@
-# GenAI Butterfly: End-to-End Intelligent Document Platform
+# GenAI Butterfly
 
 GenAI Butterfly automates document processing from upload to insight, using OCR and Generative AI to extract, analyze, and answer questions about your receipts and PDFs.
 
