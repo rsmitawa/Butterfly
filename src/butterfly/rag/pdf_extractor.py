@@ -6,7 +6,7 @@ import json
 from datetime import datetime
 
 class PDFDataExtractor:
-    def __init__(self, mongo_uri: str = "mongodb://localhost:27017/", db_name: str = "pdf_rag"):
+    def __init__(self, mongo_uri: str = "mongodb://mongodb:27017/", db_name: str = "pdf_rag"): 
         """Initialize the PDF data extractor with MongoDB connection."""
         self.client = MongoClient(mongo_uri)
         self.db = self.client[db_name]
@@ -131,14 +131,15 @@ class PDFDataExtractor:
     
     def process_directory(self, directory_path: str):
         """Process all PDFs in a directory and store in MongoDB."""
+        print("DEBUG: Files in directory:", os.listdir(directory_path))
         for filename in os.listdir(directory_path):
             if filename.endswith('.pdf'):
                 self.current_filename = filename
                 pdf_path = os.path.join(directory_path, filename)
                 try:
                     invoice_data = self.extract_invoice_data(pdf_path)
-                    self.invoices.insert_one(invoice_data)
-                    print(f"Processed {filename}")
+                    result = self.invoices.insert_one(invoice_data)
+                    print(f"Processed {filename}, inserted with _id: {result.inserted_id}")
                 except Exception as e:
                     print(f"Error processing {filename}: {str(e)}")
                 finally:
@@ -181,7 +182,7 @@ def main():
         
         # Store test QA pairs
         for question in test_questions:
-            # In a real scenario, you would get the answer from your RAG system
+            # In a real scenario, you would get the answer from your PDFRAGSystem(embedding_model="nomic-embed-text")
             answer = "Sample answer"
             sources = ["invoice_Aaron_Hawkins_4820.pdf"]
             extractor.store_qa_pair(question, answer, sources)

@@ -6,18 +6,23 @@ from langchain.chains import RetrievalQA
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.prompts import PromptTemplate
 import fitz
+import logging
 
 class PDFRAGSystem:
-    def __init__(self, embedding_model: str = "nomic-embed-text", llm_model: str = "gemma3:12b"):
-        """Initialize the RAG system with Gemma 3 12B."""
+    def __init__(self, embedding_model: str = "nomic-embed-text"): 
+        """Initialize the RAG system with Mistral LLM and nomic-embed-text embeddings by default."""
         ollama_base_url = f"http://{os.getenv('OLLAMA_HOST', 'localhost')}:11434"
-        
-        self.embeddings = OllamaEmbeddings(
-            model=embedding_model,
-            base_url=ollama_base_url
-        )
-        
-        # Custom prompt template optimized for Gemma
+        logging.debug(f"[PDFRAGSystem] Using Ollama base URL: {ollama_base_url}")
+        try:
+            self.embeddings = OllamaEmbeddings(
+                model=embedding_model,
+                base_url=ollama_base_url
+            )
+            logging.debug(f"[PDFRAGSystem] OllamaEmbeddings initialized with model: {embedding_model}")
+        except Exception as e:
+            logging.error(f"[PDFRAGSystem] Failed to initialize OllamaEmbeddings: {e}", exc_info=True)
+            raise
+        # Custom prompt template for Mistral
         self.prompt_template = """You are a helpful AI assistant specialized in analyzing PDF documents, particularly invoices. 
         Use the following pieces of context to answer the question at the end. 
         If you don't know the answer, just say that you don't know, don't try to make up an answer.
@@ -31,16 +36,23 @@ class PDFRAGSystem:
         If you reference specific documents, cite them clearly.
         Answer:"""
         
-        self.llm = OllamaLLM(
-            model=llm_model,
-            base_url=ollama_base_url,
-            temperature=0.1,    # Lower temperature for more focused answers
-            num_ctx=4096,      # Utilize Gemma's context window
-            top_k=10,          # Fine-tune for better quality
-            top_p=0.9,
-            repeat_penalty=1.1
-        )
-        
+        try:
+            self.llm = OllamaLLM(
+                model="mistral",
+                base_url=ollama_base_url,
+                temperature=0.1,    # Lower temperature for more focused answers
+                num_ctx=4096,      # Utilize a large context window
+                top_k=10,          # Fine-tune for better quality
+                top_p=0.9,
+                repeat_penalty=1.1
+            )
+            logging.debug(f"[OllamaLLM] Initialized with model: mistral at {ollama_base_url}")
+            # Test connection by invoking a simple prompt
+            test_response = self.llm.invoke("ping")
+            logging.debug(f"[OllamaLLM] Test invocation response: {test_response}")
+        except Exception as e:
+            logging.error(f"[PDFRAGSystem] Failed to initialize OllamaLLM: {e}", exc_info=True)
+            raise
         self.vector_store = None
         self.qa_chain = None
         self.text_splitter = RecursiveCharacterTextSplitter(
@@ -119,16 +131,17 @@ class PDFRAGSystem:
             raise ValueError("QA chain not set up. Call setup_qa_chain first.")
         
         try:
+            logging.debug(f"[ask_question] Invoking QA chain with question: {question}")
             result = self.qa_chain.invoke({"query": question})
             sources = []
             for doc in result.get("source_documents", []):
                 source_info = doc.metadata
                 sources.append(f"{source_info['source']} (Page {source_info['page']}, Chunk {source_info['chunk']})")
-            
+            logging.debug(f"[ask_question] QA chain result: {result}")
             return {
                 "answer": result.get("result", "Sorry, I couldn't find an answer to your question."),
                 "sources": sources
             }
         except Exception as e:
-            print(f"Error during question answering: {e}")
-            return None 
+            logging.error(f"Error during question answering: {e}", exc_info=True)
+            return None

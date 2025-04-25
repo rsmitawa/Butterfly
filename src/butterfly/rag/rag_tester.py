@@ -6,10 +6,10 @@ import json
 from datetime import datetime
 
 class RAGTester:
-    def __init__(self, mongo_uri: str = "mongodb://localhost:27017/", db_name: str = "pdf_rag"):
+    def __init__(self, mongo_uri: str = "mongodb://mongodb:27017/", db_name: str = "pdf_rag"): 
         """Initialize the RAG tester with MongoDB connection."""
         self.extractor = PDFDataExtractor(mongo_uri, db_name)
-        self.rag_system = PDFRAGSystem()
+        self.rag_system = PDFRAGSystem(embedding_model="nomic-embed-text")  # Always uses 'mistral' for LLM and nomic-embed-text for embeddings in tests
         self.rag_system.create_vector_store("data/raw")
         self.rag_system.setup_qa_chain()
     

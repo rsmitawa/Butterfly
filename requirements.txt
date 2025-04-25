@@ -2,6 +2,7 @@
 flask==3.0.2
 python-dotenv==1.0.1
 pymongo==4.6.1
+numpy<2.0  # Required for OpenCV/easyocr compatibility
 
 # PDF processing
 PyMuPDF==1.24.0
@@ -9,6 +10,12 @@ pytesseract==0.3.10
 Pillow==10.2.0
 opencv-python==4.9.0.80
 easyocr==1.7.1
+tqdm==4.66.2
+
+# Visualization
+matplotlib==3.8.0
+seaborn==0.13.0
+opencv-python-headless==4.9.0.80
 
 # RAG system
 langchain>=0.1.0

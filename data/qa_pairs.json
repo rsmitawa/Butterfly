@@ -1,51 +1,33 @@
 [
   {
-    "question": "Find all invoices for Aaron Hawkins",
-    "answer": "Sample answer",
+    "question": "hi",
+    "answer": " Hello! Here are some facts from the provided invoices:\n\n1. Invoice #32162 is for Anthony Jacobs and has a total of $4.11. The item purchased is Avery 482 labels. (INVOICE #32162)\n\n2. Invoice #36397 is for Annie Zypern and has a total of $8.25. The items purchased are Newell 333 art supplies and one item with an unspecified quantity from the Office Supplies category under OFF-AR-5312. (INVOICE #36397)\n\n3. Invoice #36399 is also for Annie Zypern and has a total of $38.66. The item purchased is Xerox 1967 paper, with a quantity of 3. (INVOICE #36399)",
     "sources": [
-      "invoice_Aaron_Hawkins_4820.pdf"
+      "invoice_Anthony Jacobs_32162.pdf (Page 1, Chunk 1)",
+      "invoice_Annie Zypern_36397.pdf (Page 1, Chunk 1)",
+      "invoice_Annie Zypern_36399.pdf (Page 1, Chunk 1)"
     ],
-    "timestamp": "2025-04-03 22:32:52.565000"
+    "timestamp": "2025-04-23 00:38:37.780000"
   },
   {
-    "question": "What's the total amount across all invoices?",
-    "answer": "Sample answer",
+    "question": "hi",
+    "answer": " Hello! Here are some facts from the provided invoices:\n\n1. Invoice #32162 is for Anthony Jacobs and has a total of $4.11. The item purchased was Avery 482 labels. (INVOICE #32162)\n\n2. Invoice #36397 is for Annie Zypern and has a total of $8.25. The items purchased were Newell 333 art supplies and one item with an unspecified name under Office Supplies. (INVOICE #36397)\n\n3. Invoice #36399 is also for Annie Zypern and has a total of $38.66. The item purchased was Xerox 1967 paper. (INVOICE #36399)",
     "sources": [
-      "invoice_Aaron_Hawkins_4820.pdf"
+      "invoice_Anthony Jacobs_32162.pdf (Page 1, Chunk 1)",
+      "invoice_Annie Zypern_36397.pdf (Page 1, Chunk 1)",
+      "invoice_Annie Zypern_36399.pdf (Page 1, Chunk 1)"
     ],
-    "timestamp": "2025-04-03 22:32:52.577000"
+    "timestamp": "2025-04-23 00:39:26.351000"
   },
   {
-    "question": "Compare the invoice amounts between Aaron Hawkins and Aaron Bergman",
-    "answer": "Sample answer",
+    "question": "hi",
+    "answer": " Hello! Here are some facts from the provided invoices:\n\n1. Invoice #32162 is for Anthony Jacobs and has a total of $4.11. The item purchased is Avery 482 labels (Quantity 1, Rate $2.89).\n\n2. Invoice #36397 is also for Annie Zypern but on a different date (Mar 16 2012) and has a total of $8.25. The items purchased are Newell 333 (Quantity 2, Rate $4.45 each) and something from the Art category in Office Supplies (Quantity 1, Rate $8.90).\n\n3. Invoice #36399 is again for Annie Zypern on the same date (Mar 16 2012) and has a total of $38.66. The item purchased is Xerox 1967 (Quantity 3, Rate $15.55 each) and something from the Paper category in Office Supplies (Quantity 1, Rate $46.66).\n\nI hope this helps! Let me know if you have any other questions or need further clarification on anything.",
     "sources": [
-      "invoice_Aaron_Hawkins_4820.pdf"
+      "invoice_Anthony Jacobs_32162.pdf (Page 1, Chunk 1)",
+      "invoice_Annie Zypern_36397.pdf (Page 1, Chunk 1)",
+      "invoice_Annie Zypern_36399.pdf (Page 1, Chunk 1)"
     ],
-    "timestamp": "2025-04-03 22:32:52.578000"
-  },
-  {
-    "question": "Find all invoices for Aaron Hawkins",
-    "answer": "Sample answer",
-    "sources": [
-      "invoice_Aaron_Hawkins_4820.pdf"
-    ],
-    "timestamp": "2025-04-03 22:37:05.171000"
-  },
-  {
-    "question": "What's the total amount across all invoices?",
-    "answer": "Sample answer",
-    "sources": [
-      "invoice_Aaron_Hawkins_4820.pdf"
-    ],
-    "timestamp": "2025-04-03 22:37:05.171000"
-  },
-  {
-    "question": "Compare the invoice amounts between Aaron Hawkins and Aaron Bergman",
-    "answer": "Sample answer",
-    "sources": [
-      "invoice_Aaron_Hawkins_4820.pdf"
-    ],
-    "timestamp": "2025-04-03 22:37:05.171000"
+    "timestamp": "2025-04-23 00:48:03.275000"
   },
   {
     "question": "Find all invoices for Aaron Hawkins",
@@ -53,7 +35,7 @@
     "sources": [
       "invoice_Aaron_Hawkins_4820.pdf"
     ],
-    "timestamp": "2025-04-03 22:39:13.057000"
+    "timestamp": "2025-04-23 01:27:02.207000"
   },
   {
     "question": "What's the total amount across all invoices?",
@@ -61,7 +43,7 @@
     "sources": [
       "invoice_Aaron_Hawkins_4820.pdf"
     ],
-    "timestamp": "2025-04-03 22:39:13.058000"
+    "timestamp": "2025-04-23 01:27:02.207000"
   },
   {
     "question": "Compare the invoice amounts between Aaron Hawkins and Aaron Bergman",
@@ -69,7 +51,17 @@
     "sources": [
       "invoice_Aaron_Hawkins_4820.pdf"
     ],
-    "timestamp": "2025-04-03 22:39:13.058000"
+    "timestamp": "2025-04-23 01:27:02.207000"
+  },
+  {
+    "question": "list all the items",
+    "answer": "1. Newell 333 (from Invoice #36397)\n2. Art, Office Supplies, OFF-AR-5312 (from Invoice #36397)\n3. Avery 482 (from Invoice #32162)\n4. Labels, Office Supplies, OFF-LA-3201 (from Invoice #32162)",
+    "sources": [
+      "invoice_Anthony Garverick_32175.pdf (Page 1, Chunk 1)",
+      "invoice_Annie Zypern_36397.pdf (Page 1, Chunk 1)",
+      "invoice_Anthony Jacobs_32162.pdf (Page 1, Chunk 1)"
+    ],
+    "timestamp": "2025-04-23 01:30:52.615000"
   },
   {
     "question": "Find all invoices for Aaron Hawkins",
@@ -77,7 +69,7 @@
     "sources": [
       "invoice_Aaron_Hawkins_4820.pdf"
     ],
-    "timestamp": "2025-04-03 22:42:00.701000"
+    "timestamp": "2025-04-23 01:36:01.109000"
   },
   {
     "question": "What's the total amount across all invoices?",
@@ -85,7 +77,7 @@
     "sources": [
       "invoice_Aaron_Hawkins_4820.pdf"
     ],
-    "timestamp": "2025-04-03 22:42:00.701000"
+    "timestamp": "2025-04-23 01:36:01.110000"
   },
   {
     "question": "Compare the invoice amounts between Aaron Hawkins and Aaron Bergman",
@@ -93,7 +85,17 @@
     "sources": [
       "invoice_Aaron_Hawkins_4820.pdf"
     ],
-    "timestamp": "2025-04-03 22:42:00.702000"
+    "timestamp": "2025-04-23 01:36:01.110000"
+  },
+  {
+    "question": "hi",
+    "answer": " Hello! Here are some facts from the provided invoices:\n\n1. Invoice #32162 is for Anthony Jacobs and the total amount is $4.11. The item purchased is Avery 482 labels. (INVOICE #32162)\n\n2. Invoice #36397 is for Annie Zypern and the total amount is $8.25. The items purchased are Newell 333 art supplies and one item of unknown type with an amount of $1.13. (INVOICE #36397)\n\n3. Invoice #36399 is also for Annie Zypern and the total amount is $38.66. The items purchased are Xerox 1967 paper supplies in quantities of three. (INVOICE #36399)",
+    "sources": [
+      "invoice_Anthony Jacobs_32162.pdf (Page 1, Chunk 1)",
+      "invoice_Annie Zypern_36397.pdf (Page 1, Chunk 1)",
+      "invoice_Annie Zypern_36399.pdf (Page 1, Chunk 1)"
+    ],
+    "timestamp": "2025-04-23 01:40:17.405000"
   },
   {
     "question": "Find all invoices for Aaron Hawkins",
@@ -101,7 +103,7 @@
     "sources": [
       "invoice_Aaron_Hawkins_4820.pdf"
     ],
-    "timestamp": "2025-04-03 22:46:31.408000"
+    "timestamp": "2025-04-23 01:44:09.570000"
   },
   {
     "question": "What's the total amount across all invoices?",
@@ -109,7 +111,7 @@
     "sources": [
       "invoice_Aaron_Hawkins_4820.pdf"
     ],
-    "timestamp": "2025-04-03 22:46:31.409000"
+    "timestamp": "2025-04-23 01:44:09.570000"
   },
   {
     "question": "Compare the invoice amounts between Aaron Hawkins and Aaron Bergman",
@@ -117,6 +119,54 @@
     "sources": [
       "invoice_Aaron_Hawkins_4820.pdf"
     ],
-    "timestamp": "2025-04-03 22:46:31.409000"
+    "timestamp": "2025-04-23 01:44:09.570000"
+  },
+  {
+    "question": "Find all invoices for Aaron Hawkins",
+    "answer": "Sample answer",
+    "sources": [
+      "invoice_Aaron_Hawkins_4820.pdf"
+    ],
+    "timestamp": "2025-04-23 01:54:52.406000"
+  },
+  {
+    "question": "What's the total amount across all invoices?",
+    "answer": "Sample answer",
+    "sources": [
+      "invoice_Aaron_Hawkins_4820.pdf"
+    ],
+    "timestamp": "2025-04-23 01:54:52.407000"
+  },
+  {
+    "question": "Compare the invoice amounts between Aaron Hawkins and Aaron Bergman",
+    "answer": "Sample answer",
+    "sources": [
+      "invoice_Aaron_Hawkins_4820.pdf"
+    ],
+    "timestamp": "2025-04-23 01:54:52.407000"
+  },
+  {
+    "question": "Find all invoices for Aaron Hawkins",
+    "answer": "Sample answer",
+    "sources": [
+      "invoice_Aaron_Hawkins_4820.pdf"
+    ],
+    "timestamp": "2025-04-23 01:55:32.931000"
+  },
+  {
+    "question": "What's the total amount across all invoices?",
+    "answer": "Sample answer",
+    "sources": [
+      "invoice_Aaron_Hawkins_4820.pdf"
+    ],
+    "timestamp": "2025-04-23 01:55:32.931000"
+  },
+  {
+    "question": "Compare the invoice amounts between Aaron Hawkins and Aaron Bergman",
+    "answer": "Sample answer",
+    "sources": [
+      "invoice_Aaron_Hawkins_4820.pdf"
+    ],
+    "timestamp": "2025-04-23 01:55:32.931000"
   }
 ]

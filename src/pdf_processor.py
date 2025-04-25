@@ -25,9 +25,12 @@ def pdf_to_jpeg(pdf_path):
     zoom = resolution_dpi / 72  # Default PDF resolution is 72 DPI
     matrix = fitz.Matrix(zoom, zoom)  # Scaling matrix
 
-    # Extract base name and directory path
+    # Extract base name
     base_name = os.path.splitext(os.path.basename(pdf_path))[0]
-    directory_path = os.path.dirname(pdf_path)
+    # Set output directory for OCR images
+    output_dir = os.path.join(os.path.dirname(__file__), '..', 'data', 'ocr_images')
+    output_dir = os.path.abspath(output_dir)
+    os.makedirs(output_dir, exist_ok=True)
 
     output_images = []  # List to store paths of generated images
 
@@ -37,7 +40,7 @@ def pdf_to_jpeg(pdf_path):
             pix = page.get_pixmap(matrix=matrix)  # Render page to image
             
             # Output file path (page_1, page_2, etc. if multi-page)
-            output_file_path = os.path.join(directory_path, f"{base_name}_page_{page_num + 1}.jpeg")
+            output_file_path = os.path.join(output_dir, f"{base_name}_page_{page_num + 1}.jpeg")
             
             pix.save(output_file_path)  # Save image
             output_images.append(output_file_path)  # Store file path

@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, jsonify
 from butterfly.rag.pdf_rag import PDFRAGSystem
 from butterfly.rag.pdf_extractor import PDFDataExtractor
 import os
+import logging
+import traceback
 from dotenv import load_dotenv
 from pymongo import MongoClient
 from datetime import datetime
@@ -12,12 +14,22 @@ load_dotenv()
 # Initialize Flask app
 app = Flask(__name__)
 
+# Configure logging to show debug info and tracebacks
+logging.basicConfig(level=logging.DEBUG)
+
+@app.errorhandler(Exception)
+def handle_exception(e):
+    # Log the error with traceback
+    app.logger.error("Exception occurred", exc_info=True)
+    # Optionally, return a JSON error message for debugging
+    return jsonify({'error': str(e), 'traceback': traceback.format_exc()}), 500
+
 # Initialize MongoDB connection
-mongo_client = MongoClient("mongodb://localhost:27017/")
+mongo_client = MongoClient("mongodb://mongodb:27017/")
 db = mongo_client["pdf_rag"]
 
 # Initialize RAG system
-rag_system = PDFRAGSystem()
+rag_system = PDFRAGSystem(embedding_model="nomic-embed-text")  # Uses 'mistral' for LLM and 'nomic-embed-text' for embeddings
 rag_system.create_vector_store("data/raw")
 rag_system.setup_qa_chain()
 
