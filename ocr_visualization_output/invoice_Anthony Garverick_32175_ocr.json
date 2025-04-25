@@ -1,0 +1,122 @@
+{
+  "pdf_file": "data/raw/invoice_Anthony Garverick_32175.pdf",
+  "pages": [
+    {
+      "page_number": 1,
+      "text": "INVOICE 5, stun 2028 Balance Due: $0.00 Bil To otal $0.00",
+      "regions": [
+        {
+          "bbox": [
+            464,
+            27,
+            574,
+            49
+          ],
+          "text": "INVOICE",
+          "conf": 95
+        },
+        {
+          "bbox": [
+            535,
+            87,
+            545,
+            115
+          ],
+          "text": "5,",
+          "conf": 60
+        },
+        {
+          "bbox": [
+            516,
+            99,
+            539,
+            106
+          ],
+          "text": "stun",
+          "conf": 47
+        },
+        {
+          "bbox": [
+            546,
+            99,
+            566,
+            106
+          ],
+          "text": "2028",
+          "conf": 81
+        },
+        {
+          "bbox": [
+            393,
+            122,
+            435,
+            130
+          ],
+          "text": "Balance",
+          "conf": 96
+        },
+        {
+          "bbox": [
+            439,
+            122,
+            462,
+            130
+          ],
+          "text": "Due:",
+          "conf": 96
+        },
+        {
+          "bbox": [
+            540,
+            122,
+            568,
+            131
+          ],
+          "text": "$0.00",
+          "conf": 84
+        },
+        {
+          "bbox": [
+            49,
+            124,
+            56,
+            131
+          ],
+          "text": "Bil",
+          "conf": 38
+        },
+        {
+          "bbox": [
+            64,
+            124,
+            72,
+            131
+          ],
+          "text": "To",
+          "conf": 38
+        },
+        {
+          "bbox": [
+            447,
+            263,
+            459,
+            270
+          ],
+          "text": "otal",
+          "conf": 60
+        },
+        {
+          "bbox": [
+            544,
+            263,
+            568,
+            271
+          ],
+          "text": "$0.00",
+          "conf": 66
+        }
+      ],
+      "visualization_path": "ocr_visualization_output/page_1_ocr.png"
+    }
+  ]
+}

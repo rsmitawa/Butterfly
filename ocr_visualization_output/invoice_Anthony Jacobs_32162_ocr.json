@@ -1,0 +1,482 @@
+{
+  "pdf_file": "data/raw/invoice_Anthony Jacobs_32162.pdf",
+  "pages": [
+    {
+      "page_number": 1,
+      "text": "Sensors INVOICE #92162 Date 41 san 2012 Bil To Ship To \u2018Anthony Jacobs sone Tanda evens Css 22159, Springield, Virginia, United Balance Dt sant rey Yes Avery 482 1 seas seas Labels, Office Supplies, OFF-LA-3201 Subtota sens Shipping: siz Tota: seat \u2018Thanks fr business! your ID Order",
+      "regions": [
+        {
+          "bbox": [
+            48,
+            23,
+            100,
+            59
+          ],
+          "text": "Sensors",
+          "conf": 30
+        },
+        {
+          "bbox": [
+            464,
+            27,
+            574,
+            49
+          ],
+          "text": "INVOICE",
+          "conf": 95
+        },
+        {
+          "bbox": [
+            529,
+            60,
+            571,
+            68
+          ],
+          "text": "#92162",
+          "conf": 62
+        },
+        {
+          "bbox": [
+            441,
+            99,
+            457,
+            127
+          ],
+          "text": "Date",
+          "conf": 93
+        },
+        {
+          "bbox": [
+            533,
+            99,
+            543,
+            127
+          ],
+          "text": "41",
+          "conf": 21
+        },
+        {
+          "bbox": [
+            514,
+            111,
+            567,
+            118
+          ],
+          "text": "san",
+          "conf": 46
+        },
+        {
+          "bbox": [
+            547,
+            111,
+            567,
+            118
+          ],
+          "text": "2012",
+          "conf": 71
+        },
+        {
+          "bbox": [
+            49,
+            124,
+            56,
+            131
+          ],
+          "text": "Bil",
+          "conf": 51
+        },
+        {
+          "bbox": [
+            64,
+            124,
+            72,
+            131
+          ],
+          "text": "To",
+          "conf": 51
+        },
+        {
+          "bbox": [
+            183,
+            124,
+            188,
+            131
+          ],
+          "text": "Ship",
+          "conf": 95
+        },
+        {
+          "bbox": [
+            195,
+            124,
+            213,
+            131
+          ],
+          "text": "To",
+          "conf": 94
+        },
+        {
+          "bbox": [
+            44,
+            130,
+            86,
+            158
+          ],
+          "text": "\u2018Anthony",
+          "conf": 76
+        },
+        {
+          "bbox": [
+            93,
+            130,
+            123,
+            158
+          ],
+          "text": "Jacobs",
+          "conf": 96
+        },
+        {
+          "bbox": [
+            502,
+            133,
+            552,
+            140
+          ],
+          "text": "sone",
+          "conf": 47
+        },
+        {
+          "bbox": [
+            508,
+            134,
+            531,
+            140
+          ],
+          "text": "Tanda",
+          "conf": 28
+        },
+        {
+          "bbox": [
+            414,
+            135,
+            457,
+            140
+          ],
+          "text": "evens",
+          "conf": 22
+        },
+        {
+          "bbox": [
+            553,
+            135,
+            567,
+            140
+          ],
+          "text": "Css",
+          "conf": 60
+        },
+        {
+          "bbox": [
+            183,
+            140,
+            209,
+            147
+          ],
+          "text": "22159,",
+          "conf": 73
+        },
+        {
+          "bbox": [
+            215,
+            140,
+            268,
+            149
+          ],
+          "text": "Springield,",
+          "conf": 56
+        },
+        {
+          "bbox": [
+            183,
+            152,
+            209,
+            161
+          ],
+          "text": "Virginia,",
+          "conf": 81
+        },
+        {
+          "bbox": [
+            224,
+            152,
+            253,
+            159
+          ],
+          "text": "United",
+          "conf": 69
+        },
+        {
+          "bbox": [
+            393,
+            156,
+            409,
+            164
+          ],
+          "text": "Balance",
+          "conf": 95
+        },
+        {
+          "bbox": [
+            439,
+            156,
+            446,
+            164
+          ],
+          "text": "Dt",
+          "conf": 66
+        },
+        {
+          "bbox": [
+            540,
+            156,
+            566,
+            165
+          ],
+          "text": "sant",
+          "conf": 63
+        },
+        {
+          "bbox": [
+            401,
+            158,
+            435,
+            164
+          ],
+          "text": "rey",
+          "conf": 5
+        },
+        {
+          "bbox": [
+            183,
+            164,
+            211,
+            171
+          ],
+          "text": "Yes",
+          "conf": 23
+        },
+        {
+          "bbox": [
+            45,
+            251,
+            71,
+            260
+          ],
+          "text": "Avery",
+          "conf": 72
+        },
+        {
+          "bbox": [
+            74,
+            251,
+            90,
+            258
+          ],
+          "text": "482",
+          "conf": 91
+        },
+        {
+          "bbox": [
+            374,
+            251,
+            376,
+            258
+          ],
+          "text": "1",
+          "conf": 90
+        },
+        {
+          "bbox": [
+            469,
+            251,
+            493,
+            259
+          ],
+          "text": "seas",
+          "conf": 27
+        },
+        {
+          "bbox": [
+            544,
+            251,
+            568,
+            259
+          ],
+          "text": "seas",
+          "conf": 16
+        },
+        {
+          "bbox": [
+            45,
+            267,
+            63,
+            274
+          ],
+          "text": "Labels,",
+          "conf": 88
+        },
+        {
+          "bbox": [
+            79,
+            267,
+            101,
+            274
+          ],
+          "text": "Office",
+          "conf": 60
+        },
+        {
+          "bbox": [
+            117,
+            267,
+            136,
+            276
+          ],
+          "text": "Supplies,",
+          "conf": 67
+        },
+        {
+          "bbox": [
+            173,
+            267,
+            207,
+            274
+          ],
+          "text": "OFF-LA-3201",
+          "conf": 57
+        },
+        {
+          "bbox": [
+            425,
+            331,
+            459,
+            338
+          ],
+          "text": "Subtota",
+          "conf": 12
+        },
+        {
+          "bbox": [
+            544,
+            331,
+            568,
+            339
+          ],
+          "text": "sens",
+          "conf": 29
+        },
+        {
+          "bbox": [
+            422,
+            352,
+            459,
+            361
+          ],
+          "text": "Shipping:",
+          "conf": 74
+        },
+        {
+          "bbox": [
+            544,
+            352,
+            568,
+            360
+          ],
+          "text": "siz",
+          "conf": 52
+        },
+        {
+          "bbox": [
+            439,
+            363,
+            459,
+            391
+          ],
+          "text": "Tota:",
+          "conf": 58
+        },
+        {
+          "bbox": [
+            544,
+            374,
+            566,
+            382
+          ],
+          "text": "seat",
+          "conf": 62
+        },
+        {
+          "bbox": [
+            48,
+            445,
+            79,
+            452
+          ],
+          "text": "\u2018Thanks",
+          "conf": 71
+        },
+        {
+          "bbox": [
+            83,
+            445,
+            94,
+            452
+          ],
+          "text": "fr",
+          "conf": 90
+        },
+        {
+          "bbox": [
+            119,
+            445,
+            159,
+            452
+          ],
+          "text": "business!",
+          "conf": 64
+        },
+        {
+          "bbox": [
+            97,
+            447,
+            115,
+            454
+          ],
+          "text": "your",
+          "conf": 64
+        },
+        {
+          "bbox": [
+            76,
+            478,
+            84,
+            506
+          ],
+          "text": "ID",
+          "conf": 63
+        },
+        {
+          "bbox": [
+            48,
+            490,
+            85,
+            497
+          ],
+          "text": "Order",
+          "conf": 56
+        }
+      ],
+      "visualization_path": "ocr_visualization_output/page_1_ocr.png"
+    }
+  ]
+}

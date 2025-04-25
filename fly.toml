@@ -1,0 +1,29 @@
+# fly.toml app configuration file generated for butterfly-doc on 2025-04-07T22:24:29-04:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'butterfly-doc'
+primary_region = 'yyz'
+
+[build]
+  dockerfile = 'Dockerfile'
+
+[http_service]
+  internal_port = 5002
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+
+[[services]]
+  protocol = 'tcp'
+  internal_port = 5005
+
+  [[services.ports]]
+    port = 80
+    handlers = ['http']
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
