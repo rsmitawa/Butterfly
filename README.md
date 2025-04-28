@@ -1,39 +1,31 @@
-# 🦋 Butterfly: GenAI-Powered Document Intelligence
+# GenAI Butterfly 🦋
 
-Butterfly is a modern, open-source platform for automating document understanding and Q&A. Effortlessly extract, analyze, and get answers from your PDFs and receipts using advanced OCR and the Mistral LLM family.
-
----
-
-## 🌟 Key Results
-
-| Metric                  | Value                   |
-|------------------------|-------------------------|
-| Data Extraction        | **97.2% Accuracy**      |
-| Query Response Time    | **<1.5s per query**     |
-| Manual Effort Reduced  | **85% less data entry** |
-| Batch Uploads          | **1,000+ docs/run**     |
-| Supported Models       | **Mistral, Nomic, Phi** |
+GenAI Butterfly automates document processing from upload to insight, using OCR and Generative AI to extract, analyze, and answer questions about your receipts and PDFs.
 
 ---
 
-## 🚀 How Butterfly Works
+## Key Results
 
-1. **Upload PDFs** → Drag and drop your invoices or receipts.
-2. **OCR & Extraction** → Fast, accurate text and table extraction.
-3. **RAG Q&A Engine** → Ask questions, get instant, context-aware answers.
-4. **Actionable Insights** → Export, visualize, or automate workflows.
+```
++-------------------------+-------------------------+
+| Data Extraction         | 97.2% Accuracy          |
+| Query Response Time     | <2s per query           |
+| Manual Effort Reduced   | 85% less data entry     |
+| Batch Uploads           | 1,000+ receipts/run     |
++-------------------------+-------------------------+
+```
 
----
+## Workflow Overview
 
-## 🤖 About the Mistral Model
-
-Butterfly leverages the [Mistral LLM](https://mistral.ai/news/announcing-mistral-7b/) for high-quality, local question answering:
-- **Default model:** `mistral:7b-instruct` (7B parameters, instruction-tuned)
-- **Why Mistral?** Fast, accurate, open, and runs on consumer hardware (with 8GB+ RAM recommended)
-- **Switch models:** Use any Ollama-supported LLM (e.g., `phi:2`, `llama2:7b`) by setting `OLLAMA_MISTRAL_MODEL`
-- **Embeddings:** Uses `nomic-embed-text` for semantic search
-
-> _Tip: For lighter systems, try `phi:2` or `llama2:7b`._
+```
+[ Upload Receipt ] 
+        ↓
+[ OCR & Extraction ]
+        ↓
+[ GenAI Q&A Engine ]
+        ↓
+[ Actionable Insights ]
+```
 
 ---
 
