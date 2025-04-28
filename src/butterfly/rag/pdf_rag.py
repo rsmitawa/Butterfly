@@ -13,12 +13,14 @@ class PDFRAGSystem:
         """Initialize the RAG system with Mistral LLM and nomic-embed-text embeddings by default."""
         ollama_base_url = f"http://{os.getenv('OLLAMA_HOST', 'localhost')}:11434"
         logging.debug(f"[PDFRAGSystem] Using Ollama base URL: {ollama_base_url}")
+        # Use a lightweight embedding model and allow override
+        embedding_model = embedding_model or "nomic-embed-text"
         try:
             self.embeddings = OllamaEmbeddings(
                 model=embedding_model,
                 base_url=ollama_base_url
             )
-            logging.debug(f"[PDFRAGSystem] OllamaEmbeddings initialized with model: {embedding_model}")
+            logging.info(f"[PDFRAGSystem] OllamaEmbeddings initialized with model: {embedding_model}")
         except Exception as e:
             logging.error(f"[PDFRAGSystem] Failed to initialize OllamaEmbeddings: {e}", exc_info=True)
             raise
@@ -36,9 +38,11 @@ class PDFRAGSystem:
         If you reference specific documents, cite them clearly.
         Answer:"""
         
+        # Use a lightweight Mistral variant (e.g., 'mistral:instruct' or 'mistral:7b-instruct')
+        mistral_model = os.getenv("OLLAMA_MISTRAL_MODEL", "mistral:instruct")
         try:
             self.llm = OllamaLLM(
-                model="mistral",
+                model=mistral_model,
                 base_url=ollama_base_url,
                 temperature=0.1,    # Lower temperature for more focused answers
                 num_ctx=4096,      # Utilize a large context window
@@ -46,10 +50,10 @@ class PDFRAGSystem:
                 top_p=0.9,
                 repeat_penalty=1.1
             )
-            logging.debug(f"[OllamaLLM] Initialized with model: mistral at {ollama_base_url}")
+            logging.info(f"[OllamaLLM] Initialized with model: {mistral_model} at {ollama_base_url}")
             # Test connection by invoking a simple prompt
             test_response = self.llm.invoke("ping")
-            logging.debug(f"[OllamaLLM] Test invocation response: {test_response}")
+            logging.info(f"[OllamaLLM] Test invocation response: {test_response}")
         except Exception as e:
             logging.error(f"[PDFRAGSystem] Failed to initialize OllamaLLM: {e}", exc_info=True)
             raise

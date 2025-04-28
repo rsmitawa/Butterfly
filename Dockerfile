@@ -17,6 +17,7 @@ RUN pip install -e .
 
 RUN mkdir -p data/raw data/processed
 
+ENV PYTHONPATH=/app
 ENV OLLAMA_HOST=host.docker.internal
 
 EXPOSE 5002

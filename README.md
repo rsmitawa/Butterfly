@@ -31,6 +31,21 @@ GenAI Butterfly automates document processing from upload to insight, using OCR 
 
 ## 🛠️ Quickstart for Developers
 
+### 🚀 Running the RAG Pipeline in Docker
+
+1. **Build the Docker image:**
+   ```bash
+   docker build -t butterfly-rag .
+   ```
+2. **Run the RAG pipeline:**
+   ```bash
+   docker run --rm -v $(pwd):/app -w /app -e PYTHONPATH=/app -e OLLAMA_MISTRAL_MODEL=mistral:7b-instruct butterfly-rag \
+     python3 -c "from src.butterfly.rag.pdf_rag import PDFRAGSystem; rag = PDFRAGSystem(); rag.create_vector_store('data/raw'); rag.setup_qa_chain(); print(rag.ask_question('What is the total invoice amount for Annie Zypern?'))"
+
+# By default, the system uses 'mistral:instruct' as the lightweight LLM model. You can override OLLAMA_MISTRAL_MODEL to use another variant if needed.
+   ```
+
+
 1. **Clone the Repo**
    ```bash
    git clone https://github.com/rsmitawa/Butterfly.git
