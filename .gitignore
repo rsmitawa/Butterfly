@@ -32,10 +32,11 @@ data/processed/*
 !data/processed/.gitkeep
 data/raw/*
 !data/raw/.gitkeep
+data/invoice_data.json
+*.log
 .DS_Store
 .AppleDouble
 .LSOverride
+.env
+.venv
 
-# Data files
-data/processed/*
-!data/processed/.gitkeep

@@ -51,6 +51,7 @@ class PDFDataExtractor:
             
             # Process extracted text
             lines = text.split('\n')
+            items = self.extract_line_items(lines)
             page_data = {
                 "page_number": page_num + 1,
                 "content": text,
@@ -59,24 +60,82 @@ class PDFDataExtractor:
                     "customer_name": self._extract_customer_name(lines),
                     "invoice_number": self._extract_invoice_number(lines),
                     "date": self._extract_date(lines),
-                    "amount": self._extract_amount(lines)
+                    "amount": self._extract_amount(lines),
+                    "items": items
                 }
             }
             invoice_data["pages"].append(page_data)
         
         return invoice_data
+
+    def extract_line_items(self, lines: list) -> list:
+        """Extract structured line items from invoice lines."""
+        items = []
+        in_items_section = False
+        for i, line in enumerate(lines):
+            # Heuristic: look for start of line items section
+            if ("Item" in line and "Quantity" in line and "Rate" in line and "Amount" in line):
+                in_items_section = True
+                continue
+            if in_items_section:
+                # Stop at subtotal, total, or empty line
+                if any(stop_word in line for stop_word in ["Subtotal", "Total", "Notes", "Terms", "Shipping", "Discount"]):
+                    break
+                parts = line.split()
+                # Heuristic: look for lines with at least 3 columns (item, quantity, price)
+                if len(parts) >= 3:
+                    try:
+                        # Try to parse quantity and price from the end
+                        quantity = float(parts[-3]) if parts[-3].replace('.', '', 1).isdigit() else None
+                        unit_price = float(parts[-2].replace('$', '')) if parts[-2].replace('.', '', 1).replace('$', '').isdigit() else None
+                        amount = float(parts[-1].replace('$', '')) if parts[-1].replace('.', '', 1).replace('$', '').isdigit() else None
+                        item_name = ' '.join(parts[:-3])
+                        items.append({
+                            "item": item_name,
+                            "quantity": quantity,
+                            "unit_price": unit_price,
+                            "amount": amount
+                        })
+                    except Exception:
+                        continue
+        return items
+
+    def export_invoices_to_json(self, directory_path: str, output_file: str):
+        """Extract and export all invoices in a directory to a JSON file (no MongoDB required)."""
+        all_invoices = []
+        for filename in os.listdir(directory_path):
+            if filename.endswith('.pdf'):
+                pdf_path = os.path.join(directory_path, filename)
+                try:
+                    invoice_data = self.extract_invoice_data(pdf_path)
+                    all_invoices.append(invoice_data)
+                except Exception as e:
+                    print(f"Error extracting {filename}: {str(e)}")
+        # Convert datetimes to string
+        def convert(o):
+            if isinstance(o, datetime):
+                return o.isoformat()
+            if isinstance(o, dict):
+                return {k: convert(v) for k, v in o.items()}
+            if isinstance(o, list):
+                return [convert(i) for i in o]
+            return o
+        with open(output_file, 'w') as f:
+            json.dump([convert(inv) for inv in all_invoices], f, indent=2)
+
     
     def _extract_customer_name(self, lines: List[str]) -> str:
-        """Extract customer name from invoice lines."""
-        # Try different patterns for customer name
-        patterns = ["Customer:", "Name:", "Client:"]
-        for line in lines:
-            for pattern in patterns:
-                if pattern in line:
-                    return line.split(pattern)[1].strip()
-        
-        # If no pattern found, try to extract from filename
-        filename = self.current_filename
+        """Extract customer name from invoice lines using heuristics and filename."""
+        # Heuristic: Look for 'Bill To:' and take the next non-empty line
+        for idx, line in enumerate(lines):
+            if 'Bill To:' in line:
+                # Look ahead for the next non-empty line
+                for next_line in lines[idx+1:idx+3]:
+                    candidate = next_line.strip()
+                    if candidate and not candidate.lower().startswith(('ship to', 'date', 'same day', 'standard class')):
+                        return candidate
+        # Fallback to filename
+        filename = getattr(self, 'current_filename', None)
         if filename:
             parts = filename.split('_')
             if len(parts) >= 2:
@@ -84,19 +143,21 @@ class PDFDataExtractor:
         return "Unknown"
     
     def _extract_invoice_number(self, lines: List[str]) -> str:
-        """Extract invoice number from invoice lines."""
-        patterns = ["Invoice #", "Invoice:", "Invoice Number:", "INV-"]
+        """Extract invoice number from invoice lines using heuristics and filename."""
+        import re
+        # Look for lines like '# 36397' or 'Invoice # 36397'
         for line in lines:
-            for pattern in patterns:
-                if pattern in line:
-                    return line.split(pattern)[1].strip()
-        
-        # If no pattern found, try to extract from filename
-        filename = self.current_filename
+            match = re.search(r'#\s*(\d+)', line)
+            if match:
+                return match.group(1)
+        # Fallback to filename
+        filename = getattr(self, 'current_filename', None)
         if filename:
             parts = filename.split('_')
             if len(parts) >= 3:
-                return parts[2].replace('.pdf', '')
+                num = parts[2].replace('.pdf', '')
+                if num.isdigit():
+                    return num
         return "Unknown"
     
     def _extract_date(self, lines: List[str]) -> str:
@@ -115,18 +176,32 @@ class PDFDataExtractor:
         return "Unknown"
     
     def _extract_amount(self, lines: List[str]) -> float:
-        """Extract total amount from invoice lines."""
-        patterns = ["Total:", "Amount:", "Invoice Total:", "Balance Due:"]
+        """Extract the correct total amount from invoice lines using invoice-specific heuristics."""
+        import re
+        # 1. Look for a line with 'Total:' and a $ amount
         for line in lines:
-            for pattern in patterns:
-                if pattern in line:
-                    amount_str = line.split(pattern)[1].strip()
-                    # Remove currency symbols and commas
-                    amount_str = amount_str.replace('$', '').replace(',', '')
-                    try:
-                        return float(amount_str)
-                    except ValueError:
-                        continue
+            if 'Total:' in line:
+                found = re.findall(r'\$([0-9]+\.[0-9]{2})', line)
+                if found:
+                    return float(found[0])
+        # 2. Look for the last $ amount before 'Notes' or 'Thanks'
+        for idx, line in enumerate(lines):
+            if 'Notes' in line or 'Thanks' in line:
+                for prev_line in reversed(lines[:idx]):
+                    found = re.findall(r'\$([0-9]+\.[0-9]{2})', prev_line)
+                    if found:
+                        return float(found[0])
+        # 3. Fallback: largest amount
+        amounts = []
+        for line in lines:
+            found = re.findall(r'\$([0-9]+\.[0-9]{2})', line)
+            for amt in found:
+                try:
+                    amounts.append(float(amt))
+                except Exception:
+                    continue
+        if amounts:
+            return max(amounts)
         return 0.0
     
     def process_directory(self, directory_path: str):
@@ -138,8 +213,10 @@ class PDFDataExtractor:
                 pdf_path = os.path.join(directory_path, filename)
                 try:
                     invoice_data = self.extract_invoice_data(pdf_path)
-                    result = self.invoices.insert_one(invoice_data)
-                    print(f"Processed {filename}, inserted with _id: {result.inserted_id}")
+                    print(f"\n===== {filename} =====")
+                    for page in invoice_data["pages"]:
+                        print(f"Page {page['page_number']} ({page['extraction_method']}):\n{page['content']}\n{'-'*40}")
+                    print(f"Processed {filename}")
                 except Exception as e:
                     print(f"Error processing {filename}: {str(e)}")
                 finally:
@@ -154,12 +231,27 @@ class PDFDataExtractor:
             "timestamp": datetime.now()
         }
         self.qa_pairs.insert_one(qa_data)
+        print(f"Stored QA pair: {question}")
     
     def export_qa_pairs(self, output_file: str):
-        """Export all QA pairs to a JSON file."""
-        qa_pairs = list(self.qa_pairs.find({}, {"_id": 0}))
+        """Export QA pairs to JSON, converting ObjectId and datetime fields to strings."""
+        from bson import ObjectId
+        from datetime import datetime
+        def convert(o):
+            if isinstance(o, ObjectId):
+                return str(o)
+            if isinstance(o, datetime):
+                return o.isoformat()
+            if isinstance(o, dict):
+                return {k: convert(v) for k, v in o.items()}
+            if isinstance(o, list):
+                return [convert(i) for i in o]
+            return o
+        qa_pairs = list(self.qa_pairs.find())
+        qa_pairs = [convert(doc) for doc in qa_pairs]
         with open(output_file, 'w') as f:
-            json.dump(qa_pairs, f, indent=2, default=str)
+            json.dump(qa_pairs, f, indent=2)
+
     
     def close(self):
         """Close MongoDB connection."""
@@ -194,4 +286,7 @@ def main():
         extractor.close()
 
 if __name__ == "__main__":
-    main() 
+    # For local testing: extract and export all invoices to JSON (no MongoDB required)
+    extractor = PDFDataExtractor()
+    extractor.export_invoices_to_json("data/raw", "data/invoice_data.json")
+    print("Exported structured invoice data to data/invoice_data.json")

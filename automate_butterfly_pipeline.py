@@ -1,6 +1,5 @@
-import subprocess
-import sys
 import os
+import sys
 
 def run_command(cmd, cwd=None):
     print(f"\n[RUN] {' '.join(cmd)}")
@@ -19,23 +18,12 @@ def main():
         sys.exit(1)
     print(f"[INFO] Found PDFs: {[f for f in os.listdir(pdf_dir) if f.endswith('.pdf')]}")
 
-    # Step 2: Build Docker images
-    run_command(['docker-compose', 'build'])
+    # Step 2: Extract and export invoices to JSON using the latest logic
+    from src.butterfly.rag.pdf_extractor import PDFDataExtractor
+    extractor = PDFDataExtractor()
+    extractor.export_invoices_to_json(pdf_dir, os.path.join('data', 'invoice_data.json'))
+    print("[INFO] Exported structured invoice data to data/invoice_data.json")
 
-    # Step 3: Start MongoDB and Ollama
-    run_command(['docker-compose', 'up', '-d', 'mongodb', 'ollama'])
-
-    # Step 4: Run PDF extraction & OCR (one-off)
-    run_command([
-        'docker-compose', 'run', '--rm', 'butterfly',
-        'python', 'src/butterfly/rag/pdf_extractor.py'
-    ])
-
-    # Step 5: Start the web app
-    run_command(['docker-compose', 'up', '-d', 'butterfly'])
-
-    print("\n[INFO] Butterfly pipeline is ready! Access the app at http://localhost:5005\n")
-    print("[INFO] To check MongoDB data, use MongoDB Compass or: docker exec -it mongodb mongosh\n")
 
 if __name__ == "__main__":
     main()

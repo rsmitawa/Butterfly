@@ -1,7 +1,8 @@
 from fpdf import FPDF
 import os
 
-def create_test_invoice():
+
+create_test_invoice():
     pdf = FPDF()
     
     # Add a page with regular text

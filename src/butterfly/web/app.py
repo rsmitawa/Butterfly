@@ -98,4 +98,5 @@ def get_qa_pairs():
     return jsonify(qa_pairs)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5005) 
+    port = int(os.environ.get('BUTTERFLY_PORT', 5005))
+    app.run(debug=True, host='0.0.0.0', port=port)

@@ -19,15 +19,21 @@ services:
     build: .
     container_name: butterfly
     ports:
-      - "5005:5005"
+      - "${BUTTERFLY_PORT:-5005}:5005"
     environment:
       - OLLAMA_HOST=ollama
       - MONGODB_URI=mongodb://mongodb:27017
+      - BUTTERFLY_PORT=${BUTTERFLY_PORT:-5005}
     depends_on:
       - mongodb
       - ollama
     volumes:
       - ./data:/app/data
+
+# Port Usage Documentation
+# 5005: Butterfly web app (default, can be changed with BUTTERFLY_PORT)
+# 27017: MongoDB
+# 11434: Ollama
 
 volumes:
   mongodb_data:

@@ -6,14 +6,14 @@ import json
 from datetime import datetime
 
 class RAGTester:
-    def __init__(self, mongo_uri: str = "mongodb://mongodb:27017/", db_name: str = "pdf_rag"): 
+    __init__(self, mongo_uri: str = "mongodb://mongodb:27017/", db_name: str = "pdf_rag"): 
         """Initialize the RAG tester with MongoDB connection."""
         self.extractor = PDFDataExtractor(mongo_uri, db_name)
         self.rag_system = PDFRAGSystem(embedding_model="nomic-embed-text")  # Always uses 'mistral' for LLM and nomic-embed-text for embeddings in tests
         self.rag_system.create_vector_store("data/raw")
         self.rag_system.setup_qa_chain()
     
-    def run_test_questions(self, questions: List[str]) -> List[Dict]:
+    run_test_questions(self, questions: List[str]) -> List[Dict]:
         """Run a set of test questions through the RAG system."""
         results = []
         
@@ -51,29 +51,16 @@ class RAGTester:
         
         return results
     
-    def export_results(self, results: List[Dict], output_file: str):
+    export_results(self, results: List[Dict], output_file: str):
         """Export test results to a JSON file."""
         with open(output_file, 'w') as f:
             json.dump(results, f, indent=2)
 
-def main():
+main():
     # Initialize the tester
     tester = RAGTester()
     
     try:
-        # Define test questions
-        test_questions = [
-            "Find all invoices for Aaron Hawkins",
-            "What's the total amount across all invoices?",
-            "Compare the invoice amounts between Aaron Hawkins and Aaron Bergman",
-            "What are the dates of Aaron Hawkins' invoices?",
-            "Which invoices were generated in June 2023?",
-            "Find the highest invoice amount and who it belongs to",
-            "Summarize the payment terms across all invoices",
-            "Compare the invoice structures between different customers",
-            "Are there any patterns in the invoice numbers?"
-        ]
-        
         # Run tests
         results = tester.run_test_questions(test_questions)
         
